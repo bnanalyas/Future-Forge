@@ -20,3 +20,4 @@ def analyze_document(document_name):
         "forgery_detected": forgery_detected,
         "notes": "Auto-analysis simulation for demo purposes"
     }
+
