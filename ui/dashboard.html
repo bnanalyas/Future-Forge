@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>Future-Forge Dashboard</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 40px;
+        }
+        .card {
+            background: white;
+            width: 380px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px #ccc;
+        }
+        #resultBox {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8ffe8;
+            border-radius: 8px;
+        }
+        button {
+            padding: 12px 20px;
+            margin-top: 15px;
+            border: none;
+            background: #2d7d46;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Future-Forge Dashboard</h1>
+
+    <div class="card">
+        <h3>🔍 تحليل مستند</h3>
+        <input id="fileInput" type="file">
+        <button onclick="analyze()">تحليل</button>
+
+        <div id="resultBox">
+            <h3>نتيجة التحليل:</h3>
+            <p id="risk"></p>
+            <p id="level"></p>
+        </div>
+    </div>
+
+    <script>
+        function analyze() {
+            const risk = Math.floor(Math.random() * 100);
+            let level = "منخفض";
+
+            if (risk > 80) level = "مرتفع 🔴";
+            else if (risk > 50) level = "متوسط 🟡";
+            else level = "منخفض 🟢";
+
+            document.getElementById("risk").innerText = "درجة الخطورة: " + risk + "%";
+            document.getElementById("level").innerText = "مستوى الخطورة: " + level;
+
+            document.getElementById("resultBox").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
 
