@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>Future-Forge Alerts</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 40px;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        .alert {
+            background: white;
+            width: 450px;
+            margin: 15px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 12px #ccc;
+            text-align: right;
+        }
+        .high {
+            border-right: 8px solid #d9534f;
+        }
+        .medium {
+            border-right: 8px solid #f0ad4e;
+        }
+        .low {
+            border-right: 8px solid #5cb85c;
+        }
+        .time {
+            color: #666;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>تنبيهات الاحتيال</h1>
+
+    <div id="alertsContainer"></div>
+
+    <script>
+        const sampleAlerts = [
+            { level: "high", msg: "محاولة رفع هوية معدّلة", time: "قبل 3 دقائق" },
+            { level: "medium", msg: "تسجيل دخول مشبوه من منطقة غير معتادة", time: "قبل 25 دقيقة" },
+            { level: "low", msg: "رفع مستند ذو جودة منخفضة", time: "قبل ساعتين" }
+        ];
+
+        function loadAlerts() {
+            const container = document.getElementById("alertsContainer");
+
+            sampleAlerts.forEach(alert => {
+                const div = document.createElement("div");
+                div.className = `alert ${alert.level}`;
+                div.innerHTML = `
+                    <h3>${alert.msg}</h3>
+                    <p class="time">${alert.time}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        loadAlerts();
+    </script>
+
+</body>
+</html>
