@@ -54,21 +54,6 @@
         </div>
     </div>
 
-    <script>
-        function analyze() {
-            const risk = Math.floor(Math.random() * 100);
-            let level = "منخفض";
-
-            if (risk > 80) level = "مرتفع 🔴";
-            else if (risk > 50) level = "متوسط 🟡";
-            else level = "منخفض 🟢";
-
-            document.getElementById("risk").innerText = "درجة الخطورة: " + risk + "%";
-            document.getElementById("level").innerText = "مستوى الخطورة: " + level;
-
-            document.getElementById("resultBox").style.display = "block";
-        }
-    </script>
 
 </body>
 </html>
