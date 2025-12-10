@@ -54,7 +54,31 @@
         </div>
     </div>
 
+    <script>
+        async function analyze() {
+            const file = document.getElementById("fileInput").files[0];
+
+            if (!file) {
+                alert("رجاءً اختاري ملف أولاً");
+                return;
+            }
+
+            // محاكاة إرسال الملف للـ API
+            const fakeResult = {
+                risk: Math.floor(Math.random() * 100),
+                level: ""
+            };
+
+            if (fakeResult.risk > 80) fakeResult.level = "مرتفع 🔴";
+            else if (fakeResult.risk > 50) fakeResult.level = "متوسط 🟡";
+            else fakeResult.level = "منخفض 🟢";
+
+            document.getElementById("risk").innerText = "درجة الخطورة: " + fakeResult.risk + "%";
+            document.getElementById("level").innerText = "مستوى الخطورة: " + fakeResult.level;
+
+            document.getElementById("resultBox").style.display = "block";
+        }
+    </script>
 
 </body>
 </html>
-
