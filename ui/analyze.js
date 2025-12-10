@@ -1,26 +1,40 @@
 async function analyzeDocument() {
     const fileInput = document.getElementById("fileInput");
-    const resultBox = document.getElementById("resultBox");
+    const file = fileInput.files[0];
 
-    if (!fileInput.files.length) {
-        alert("يرجى رفع ملف للتحليل");
+    if (!file) {
+        alert("الرجاء رفع ملف!");
         return;
     }
 
     const formData = new FormData();
-    formData.append("file", fileInput.files[0]);
+    formData.append("file", file);
 
-    // الاتصال بالـ API
-    const response = await fetch("http://127.0.0.1:5000/analyze", {
-        method: "POST",
-        body: formData
-    });
+    // عنوان السيرفر المحلي للباك-إند
+    const apiURL = "http://127.0.0.1:5000/analyze";
 
-    const data = await response.json();
+    try {
+        const response = await fetch(apiURL, {
+            method: "POST",
+            body: formData
+        });
 
-    document.getElementById("risk").innerText = "درجة الخطورة: " + data.risk_score + "%";
-    document.getElementById("level").innerText = "مستوى الخطورة: " + data.risk_level;
+        const result = await response.json();
 
-    resultBox.style.display = "block";
+        document.getElementById("risk").innerText =
+            "درجة الخطورة: " + result.risk_score + "%";
+
+        let level = "منخفض 🟢";
+        if (result.risk_level === "High") level = "مرتفع 🔴";
+        else if (result.risk_level === "Medium") level = "متوسط 🟡";
+
+        document.getElementById("level").innerText =
+            "مستوى الخطورة: " + level;
+
+        document.getElementById("resultBox").style.display = "block";
+
+    } catch (error) {
+        console.error(error);
+        alert("حدث خطأ أثناء الاتصال بالخادم");
+    }
 }
-
