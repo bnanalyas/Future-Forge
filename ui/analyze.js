@@ -12,19 +12,18 @@ document.getElementById("analyzeButton").addEventListener("click", () => {
     let file = fileInput.files[0];
     let risk = 0;
 
-    // 🔍 تحليل بسيط حسب اسم الملف
-    if (file.name.includes("fake") || file.name.includes("edit") || file.name.includes("photoshop")) {
+    // 🔍 تحليل حسب الاسم
+    if (file.name.toLowerCase().includes("fake") ||
+        file.name.toLowerCase().includes("edit") ||
+        file.name.toLowerCase().includes("ps")) {
         risk += 60;
     }
 
-    // 🔍 تحليل جودة الصورة
-    if (file.size < 80 * 1024) {
-        risk += 20;
-    } else if (file.size > 2 * 1024 * 1024) {
-        risk += 10;
-    }
+    // 🔍 تحليل الجودة حسب الحجم
+    if (file.size < 90 * 1024) risk += 25; // منخفضة الجودة
+    if (file.size > 2 * 1024 * 1024) risk += 10; // مبالغ فيها
 
-    // 🔍 تحليل نوع الصورة
+    // 🔍 تحليل النوع
     if (!["image/jpeg", "image/png"].includes(file.type)) {
         risk += 30;
     }
