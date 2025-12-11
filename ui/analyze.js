@@ -1,40 +1,48 @@
-async function analyzeDocument() {
+function analyze() {
     const fileInput = document.getElementById("fileInput");
-    const file = fileInput.files[0];
+    const resultBox = document.getElementById("resultBox");
+    const riskEl = document.getElementById("risk");
+    const levelEl = document.getElementById("level");
 
-    if (!file) {
-        alert("الرجاء رفع ملف!");
+    if (!fileInput.files || fileInput.files.length === 0) {
+        alert("فضلاً اختاري صورة المستند");
         return;
     }
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const file = fileInput.files[0];
 
-    // عنوان السيرفر المحلي للباك-إند
-    const apiURL = "http://127.0.0.1:5000/analyze";
+    // محاكاة ذكاء اصطناعي عبر تحليل حجم الصورة والوضوح
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
 
-    try {
-        const response = await fetch(apiURL, {
-            method: "POST",
-            body: formData
-        });
+    img.onload = () => {
+        let risk = 0;
 
-        const result = await response.json();
+        // 1) حساب مستوى الخطورة بناء على دقة الصورة
+        const resolutionScore = (img.width * img.height) / 1000000;
+        if (resolutionScore < 1) risk += 40; // دقة ضعيفة → اشتباه
 
-        document.getElementById("risk").innerText =
-            "درجة الخطورة: " + result.risk_score + "%";
+        // 2) اسم الملف
+        if (file.name.toLowerCase().includes("edited") ||
+            file.name.toLowerCase().includes("fake") ||
+            file.name.toLowerCase().includes("copy")) {
+            risk += 50; // علامات تعديل
+        }
 
+        // 3) لو الصورة مقلوبة
+        if (img.width < img.height) risk += 20;
+
+        // قص النسبة لو زادت
+        if (risk > 100) risk = 100;
+
+        // تحديد مستوى الخطورة
         let level = "منخفض 🟢";
-        if (result.risk_level === "High") level = "مرتفع 🔴";
-        else if (result.risk_level === "Medium") level = "متوسط 🟡";
+        if (risk > 80) level = "مرتفع 🔴";
+        else if (risk > 50) level = "متوسط 🟡";
 
-        document.getElementById("level").innerText =
-            "مستوى الخطورة: " + level;
-
-        document.getElementById("resultBox").style.display = "block";
-
-    } catch (error) {
-        console.error(error);
-        alert("حدث خطأ أثناء الاتصال بالخادم");
-    }
+        // إظهار النتيجة
+        riskEl.innerText = "درجة الخطورة: " + risk + "%";
+        levelEl.innerText = "التقييم: " + level;
+        resultBox.style.display = "block";
+    };
 }
