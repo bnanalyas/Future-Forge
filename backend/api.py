@@ -25,3 +25,17 @@ def analyze():
 
 if __name__ == "__main__":
     app.run()
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)   # ← This allows all frontend origins
+@app.route('/analyze-id', methods=['POST'])
+def analyze_id():
+    # Dummy response
+    print("current response is ")
+    return jsonify({"status": "ok", "result": "غير مشتبه به", "confidence": 0.93})
+
+if __name__ == '__main__':
+    app.run(port=5000)
