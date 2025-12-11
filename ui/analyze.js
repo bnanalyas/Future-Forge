@@ -37,4 +37,17 @@ document.getElementById("analyzeButton").addEventListener("click", () => {
     riskText.innerText = "درجة الخطورة: " + risk + "%";
     levelText.innerText = "مستوى الخطورة: " + level;
     resultBox.style.display = "block";
-});
+async function analyze(){
+    document.getElementById("result").innerText = "جاري التحليل...";
+    console.log(" anlyse function called ");
+
+    let res = await fetch("http://127.0.0.1:5000/analyze-id",{
+        method:"POST"
+    });
+    console.log(" after called  ");
+
+    let data = await res.json();
+    console.log("Response output:", data);
+    document.getElementById("result").innerText =
+        "النتيجة: " + data.result + " | الثقة: " + (data.confidence*100).toFixed(1)+"%";
+}
