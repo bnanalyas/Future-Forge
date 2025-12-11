@@ -1,73 +1,32 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>Future-Forge Alerts</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 40px;
-        }
-        h1 {
-            margin-bottom: 30px;
-        }
-        .alert {
-            background: white;
-            width: 450px;
-            margin: 15px auto;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 0 12px #ccc;
-            text-align: right;
-        }
-        .high {
-            border-right: 8px solid #d9534f;
-        }
-        .medium {
-            border-right: 8px solid #f0ad4e;
-        }
-        .low {
-            border-right: 8px solid #5cb85c;
-        }
-        .time {
-            color: #666;
-            font-size: 14px;
-            margin-top: 8px;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>تنبيهات النظام</title>
+<style>
+body { font-family: Tahoma; background: #fafafa; padding: 40px; text-align:center }
+.card {
+    width: 450px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0px 0px 10px #ccc;
+    text-align: right;
+}
+</style>
 </head>
 
 <body>
+<h1>🔔 تنبيهات النظام</h1>
 
-    <h1>تنبيهات الاحتيال</h1>
+<div class="card">
+    <p>• محاولة رفع مستند معدل — مستوى الخطورة: مرتفع 🔴</p>
+    <p>• صورة غير واضحة — مستوى الخطورة: متوسط 🟡</p>
+    <p>• تطابق الهوية ناجح — مستوى الخطورة: منخفض 🟢</p>
+</div>
 
-    <div id="alertsContainer"></div>
-
-    <script>
-        const sampleAlerts = [
-            { level: "high", msg: "محاولة رفع هوية معدّلة", time: "قبل 3 دقائق" },
-            { level: "medium", msg: "تسجيل دخول مشبوه من منطقة غير معتادة", time: "قبل 25 دقيقة" },
-            { level: "low", msg: "رفع مستند ذو جودة منخفضة", time: "قبل ساعتين" }
-        ];
-
-        function loadAlerts() {
-            const container = document.getElementById("alertsContainer");
-
-            sampleAlerts.forEach(alert => {
-                const div = document.createElement("div");
-                div.className = `alert ${alert.level}`;
-                div.innerHTML = `
-                    <h3>${alert.msg}</h3>
-                    <p class="time">${alert.time}</p>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        loadAlerts();
-    </script>
-
+<br>
+<a href="index.html"><button>رجوع</button></a>
 </body>
 </html>
